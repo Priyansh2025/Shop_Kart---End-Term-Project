@@ -78,11 +78,12 @@ Configure the environment variables required by the backend.
 
 Create a .env file inside the Server directory and add the appropriate values. For example:
 
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
+dbURL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 
-Important: These are example variable names. Check the backend code to confirm the exact names your application expects.
+Keep these values private. The server reads `dbURL`, `JWT_SECRET`, `RAZORPAY_KEY_ID`, and `RAZORPAY_KEY_SECRET`.
 
 Start the backend using the script defined in Server/package.json. If the project defines a start script, use:
 
@@ -104,7 +105,15 @@ npm run dev
 
 Vite will display the local URL in the terminal. Open that URL in your browser.
 
-Note: The backend port, frontend API URL, and environment variable names must match your actual project configuration.
+Note: The local backend runs on port 8002. Vite proxies `/api/*` requests to it.
+
+## Deploying on Vercel
+
+The repository-root `vercel.json` configures the `Client` and `Server` directories as services in one Vercel project. The client is public at `/`; API requests under `/api/*` are routed to the server. The frontend uses same-origin `/api/` requests, so it does not need a separate backend URL or cross-origin configuration.
+
+Add `dbURL`, `JWT_SECRET`, `RAZORPAY_KEY_ID`, and `RAZORPAY_KEY_SECRET` to the Vercel project's environment variables for the server service. Do not set these in the client service.
+
+For local development, run the backend with `npm run dev` from `Server`, then run the client with `npm run dev` from `Client`.
 
 🔌 API Functionality
 
