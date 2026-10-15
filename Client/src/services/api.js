@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://shopkart-backend-eight.vercel.app",
+  baseURL:
+    "https://shopkart-backend-3iu654u86-priyansh05khanna-8752s-projects.vercel.app",
   withCredentials: true,
 });
 
