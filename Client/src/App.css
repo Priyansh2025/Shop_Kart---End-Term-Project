@@ -2523,3 +2523,29 @@ body {
 .cart-page .empty-cart p {
   color: #1f2937 !important;
 }
+
+.auth-toggle {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-toggle button {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.auth-toggle button:hover {
+  text-decoration: underline;
+}
+
+.success-message {
+  color: #15803d;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 14px;
+}
