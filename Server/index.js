@@ -16,14 +16,16 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 dotenv.config();
 
 const app = express();
+
 app.use(
   cors({
-    origin: "http://localhost:5175",
+    origin: [
+      "http://localhost:5175",
+      "https://shopkart-frontend-sigma.vercel.app",
+    ],
     credentials: true,
   }),
 );
-
-const port = 8002;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -40,9 +42,16 @@ mongoose
     console.log("Connected to MongoDB");
   })
   .catch((err) => {
-    console.log("Error connecting to MongoDB:", err);
+    console.log("Error connecting to MongoDB:", err.message);
   });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default app;
+
+// Allow local development
+const port = process.env.PORT || 8002;
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
