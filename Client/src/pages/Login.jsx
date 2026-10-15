@@ -10,9 +10,10 @@ const Login = () => {
   const [isRegister, setIsRegister] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
     password: "",
+    phone: "",
   });
 
   const [error, setError] = useState("");
@@ -34,17 +35,19 @@ const Login = () => {
     try {
       if (isRegister) {
         await api.post("/customers/register", {
-          name: formData.name,
+          fullName: formData.fullName,
           email: formData.email,
           password: formData.password,
+          phone: formData.phone,
         });
 
         setSuccess("Account created successfully! Please log in.");
 
         setFormData({
-          name: "",
+          fullName: "",
           email: "",
           password: "",
+          phone: "",
         });
 
         setIsRegister(false);
@@ -83,7 +86,6 @@ const Login = () => {
             <br />
             all in one place.
           </p>
-
           <span>Simple. Fast. Secure.</span>
         </div>
 
@@ -103,19 +105,35 @@ const Login = () => {
 
           <form className="auth-form" onSubmit={handleSubmit}>
             {isRegister && (
-              <div className="input-group">
-                <label htmlFor="name">Full Name</label>
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  placeholder="Enter your full name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  autoComplete="name"
-                  required
-                />
-              </div>
+              <>
+                <div className="input-group">
+                  <label htmlFor="fullName">Full Name</label>
+                  <input
+                    id="fullName"
+                    type="text"
+                    name="fullName"
+                    placeholder="Enter your full name"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    autoComplete="name"
+                    required
+                  />
+                </div>
+
+                <div className="input-group">
+                  <label htmlFor="phone">Phone Number</label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    autoComplete="tel"
+                    required
+                  />
+                </div>
+              </>
             )}
 
             <div className="input-group">
@@ -138,12 +156,16 @@ const Login = () => {
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Enter your password"
+                placeholder={
+                  isRegister
+                    ? "Password (minimum 6 characters)"
+                    : "Enter your password"
+                }
                 value={formData.password}
                 onChange={handleChange}
                 autoComplete={isRegister ? "new-password" : "current-password"}
-                required
                 minLength={isRegister ? 6 : undefined}
+                required
               />
             </div>
 
