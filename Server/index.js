@@ -47,7 +47,6 @@ mongoose
 
 export default app;
 
-// Allow local development
 const port = process.env.PORT || 8002;
 
 if (process.env.NODE_ENV !== "production") {
